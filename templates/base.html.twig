@@ -23,45 +23,11 @@
 
 </head>
 <body>
-<div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <img class="card-img-top" src="{{ asset('images/logo.png') }}" alt="Symfony!" style="width: 15%;"/>
-        </a>
-
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
-            {% if app.user %}
-                <li class="nav-item"><a class="nav-link">Hello {{ app.user.email }}</a></li>
-            {% endif %}
-            <li class="nav-item">
-                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link">
-                    {{ app.user ? 'Logout' : 'Login' }}
-                </a>
-            </li>
-
-            <li class="nav-item"><a href="#" class="nav-link">Signup</a></li>
-
-        </ul>
-    </header>
-</div>
+<body>
+{{ include('_nav.html.twig') }}
 {% block body %}{% endblock %}
-    <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <p class="col-md-4 mb-0 text-muted">© 2022 WebG301 - 0905, Sum</p>
-
-            <a href="/"
-               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            </a>
-
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-            </ul>
-        </footer>
-    </div>
+{{ include('_footer.html.twig') }}
+</body>
 
 </body>
 </html>
