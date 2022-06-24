@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +18,55 @@ class ProductController extends AbstractController
 {
     /**
      * @Route("/", name="app_product_index", methods={"GET"})
+     * @param ProductRepository $productRepository
+     * @param Request $request
+     * @param $orderBy
+     * @param int $pageId
+     * @return Response
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, Request $request, int $pageId = 1): Response
     {
-        return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+//        $selectedCategory = $request->query->get('category');
+        $minPrice = $request->query->get('minPrice');
+        $maxPrice = $request->query->get('maxPrice');
+        $Name = $request->query->get('name');
+        $sortBy = $request->query->get('sort');
+        $orderBy = $request->query->get('order');
+
+
+        $expressionBuilder = Criteria::expr();
+        $criteria = new Criteria();
+        if (!is_null($minPrice) || empty($minPrice)) {
+            $minPrice = 0;
+        }
+        $criteria->where($expressionBuilder->gte('price', $minPrice));
+        if (!is_null($maxPrice) && !empty(($maxPrice))) {
+            $criteria->andWhere($expressionBuilder->lte('price', $maxPrice));
+        }
+        if (!is_null($Name) && !empty(($Name))) {
+            $criteria->andWhere($expressionBuilder->contains('name', $Name));
+            $criteria->orWhere($expressionBuilder->contains('description', $Name));
+
+        }
+//        if (!is_null($selectedCategory)) {
+//            $criteria->andWhere($expressionBuilder->eq('Category', $selectedCategory));
+//        }
+        if(!empty($sortBy)){
+            $criteria->orderBy([$sortBy => ($orderBy == 'asc') ? Criteria::ASC : Criteria::DESC]);
+        }
+        $filteredList = $productRepository->matching($criteria);
+
+        $numOfItems = $filteredList->count();   // total number of items satisfied above query
+        $itemsPerPage = 8; // number of items shown each page
+        $filteredList = $filteredList->slice($itemsPerPage * ($pageId - 1), $itemsPerPage);
+        return $this->renderForm('product/index.html.twig', [
+            'products' => $filteredList,
+//            'selectedCat' => $selectedCategory ?: 'Drink',
+            'numOfPages' => ceil($numOfItems / $itemsPerPage)
         ]);
+
     }
+
 
     /**
      * @Route("/new", name="app_product_new", methods={"GET", "POST"})
@@ -61,7 +104,7 @@ class ProductController extends AbstractController
      */
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(ProductType::class, $product, array("no_edit" => true));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
