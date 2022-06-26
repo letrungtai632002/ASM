@@ -3,15 +3,94 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="container-md col-md-4 col-md-offset-4">
-        <h1>Register</h1>
-        {{ form_start(registrationForm, { 'attr' : { 'class': 'form-control' } }) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        <button type="submit" class="btn btn-primary btn-sm">Register</button>
-        {{ form_end(registrationForm) }}
-    </div>
+        <div>
+{#            {{ form_start(registrationForm, { 'attr' : { 'class': 'form-control' } }) }}#}
+            <section class="vh-90 gradient-custom" >
+                <div class="container py-5 h-100" >
+                    <div class="row justify-content-center align-items-center h-100">
+                        <div class="col-12 col-lg-9 col-xl-7">
+                            <div class="card shadow-2-strong card-registration"
+                                 style="border-radius: 15px; background-color: #282726; color: white">
+                                <div class="card-body p-4 p-md-5">
+                                    <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+                                    <form>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    {{ form_label(registrationForm.firstname) }}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.firstname) }}                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    {{ form_label(registrationForm.lastname) }}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.lastname) }}                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    {{ form_label(registrationForm.email) }}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.email) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4 d-flex align-items-center">
+                                                <div class="form-outline datepicker w-100">
+                                                    {{ form_label(registrationForm.DoB) }}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.DoB) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    {{ form_label(registrationForm.plainPassword.first)}}
+                                                    {{ form_errors(registrationForm.plainPassword.first)}}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.plainPassword.first) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                {{ form_label(registrationForm.gender) }}
+                                                <br>
+                                                {{ form_widget(registrationForm.gender) }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    {{ form_label(registrationForm.plainPassword.second)}}
+                                                    <br>
+                                                    {{ form_widget(registrationForm.plainPassword.second) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                {{ form_label(registrationForm.phonenumber) }}
+                                                <br>
+                                                {{ form_widget(registrationForm.phonenumber) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-4 pt-2 text-center">
+                                            {{ form_row(registrationForm.agreeTerms) }}
+                                            <br>
+                                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                                            {{ form_end(registrationForm) }}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+
 {% endblock %}
