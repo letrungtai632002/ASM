@@ -42,6 +42,11 @@ class Product
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=brand::class)
+     */
+    private $brand;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Product
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getBrand(): ?brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?brand $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }
