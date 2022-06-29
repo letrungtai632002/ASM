@@ -5,19 +5,36 @@
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
             <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
+            {% if app.request.get('_route') == 'app_product_index'%}
+            <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link active">Products</a></li>
+            {% else %}
+                <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
+            {% endif %}
+
             {% if app.user %}
                 <li class="nav-item"><a class="nav-link">Hello {{ app.user.lastname }}</a></li>
             {% endif %}
+
             <li class="nav-item">
-                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link">
+                {% if app.request.get('_route') == 'app_login' %}
+                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link active">
                     {{ app.user ? 'Logout' : 'Login' }}
                 </a>
+                {% else %}
+
+                    <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link ">
+                        {{ app.user ? 'Logout' : 'Login' }}
+                    </a>
+                {% endif %}
             </li>
             {% if app.user is null %}
-                <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link">Signup</a></li>
+                {% if app.request.get('_route') == 'app_register'%}
+                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link active">Signup</a></li>
+                {% else %}
+                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link">Signup</a></li>
+                {% endif %}
             {% endif %}
 
         </ul>
