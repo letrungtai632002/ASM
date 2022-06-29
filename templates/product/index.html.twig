@@ -2,18 +2,12 @@
 
 {% block title %}Products index{% endblock %}
 {% block body %}
+
     <div class="container-md pt-10">
         <div class="row">
             <div class="col-4">
                 <div class="container">
                     <form action={{ path('app_product_index') }} method="get">
-                        {#                    Category: #}
-                        {#                    <select name="category"> #}
-                        {#                        <option value="Mobile" {{ (selectedCat=="Mobile") ? 'selected' }}> Mobile</option> #}
-                        {#                        <option value="TV" {{ (selectedCat=="TV") ? 'selected' }}> TV</option> #}
-                        {#                        <option value="Laptop" {{ (selectedCat=="Laptop") ? 'selected' }} >Laptop</option> #}
-                        {#                        <option value="AirPods" {{ (selectedCat=="AirPods") ? 'selected' }} >AirPods</option> #}
-                        {#                    </select><br> #}
                         <input type="string" name="name" class="form-control rounded mb-4"
                                placeholder="What are you looking for?" aria-label="Search"
                                aria-describedby="search-addon"/>
@@ -37,12 +31,19 @@
                 </div>
             </div>
             <div class="col-8">
+                <form action={{ path('app_product_index') }} method="get">
+                    <div style="display: flex; justify-content: space-between">
+                        {% for brand in brands %}
+                            <input type="submit" style="width: 100px;" value="{{ brand.name }}" name="brand" class="btn btn-primary">
+                        {% endfor %}
+                    </div>
+                </form>
                 <div class="container">
                     <div class="row row-cols-1 row-cols-md-4 g-4 pt-4">
                         {% for product in products %}
                             <div class="col">
                                 <div class="card h-100">
-                                    <img class="card-img-top" src="{{ asset(product.image) }}" alt="Symfony!"/>
+                                    <img class="card-img-top" style="width: 100%; height: 150px" src="{{ asset(product.image) }}" alt="Symfony!"/>
                                     <div class="card-body">
                                         <h5 class="card-title">{{ product.name }}</h5>
                                         <p>Price: {{ product.price }}</p>

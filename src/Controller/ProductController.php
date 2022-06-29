@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\BrandRepository;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,9 +26,9 @@ class ProductController extends AbstractController
      * @param int $pageId
      * @return Response
      */
-    public function index(ProductRepository $productRepository, Request $request, int $pageId = 1): Response
+    public function index(ProductRepository $productRepository, BrandRepository $brandRepository, Request $request, int $pageId = 1): Response
     {
-//        $selectedCategory = $request->query->get('category');
+//        $brand = $request->query->get('brand');
         $minPrice = $request->query->get('minPrice');
         $maxPrice = $request->query->get('maxPrice');
         $Name = $request->query->get('name');
@@ -49,8 +50,8 @@ class ProductController extends AbstractController
             $criteria->orWhere($expressionBuilder->contains('description', $Name));
 
         }
-//        if (!is_null($selectedCategory)) {
-//            $criteria->andWhere($expressionBuilder->eq('Category', $selectedCategory));
+//        if (!is_null($brand)) {
+//            $criteria->andWhere($expressionBuilder->eq('brandname', $brand));
 //        }
         if(!empty($sortBy)){
             $criteria->orderBy([$sortBy => ($orderBy == 'asc') ? Criteria::ASC : Criteria::DESC]);
@@ -62,8 +63,9 @@ class ProductController extends AbstractController
         $filteredList = $filteredList->slice($itemsPerPage * ($pageId - 1), $itemsPerPage);
         return $this->renderForm('product/index.html.twig', [
             'products' => $filteredList,
-//            'selectedCat' => $selectedCategory ?: 'Drink',
+            'brands' => $brandRepository->findAll(),
             'numOfPages' => ceil($numOfItems / $itemsPerPage)
+
         ]);
 
     }

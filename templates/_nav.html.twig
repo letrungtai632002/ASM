@@ -1,39 +1,39 @@
-<div class="container">
+<div class="container" style="background: linear-gradient(-180deg,#f53d2d, #f63);">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <a href="{{ path('app_product_index') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <img class="card-img-top" src="{{ asset('images/logo.png') }}" alt="Symfony!" style="width: 15%;"/>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+            <li class="nav-item" ><a href="#" class="nav-link" aria-current="page" style="color: white;">Home</a></li>
+            <li class="nav-item" ><a href="#" class="nav-link" style="color: white;">About</a></li>
             {% if app.request.get('_route') == 'app_product_index'%}
-            <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link active">Products</a></li>
+            <li class="nav-item" style="color: white;"><a href="{{ path('app_product_index') }}" class="nav-link active">Products</a></li>
             {% else %}
-                <li class="nav-item"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
+                <li class="nav-item" style="color: white;"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
             {% endif %}
 
             {% if app.user %}
-                <li class="nav-item"><a class="nav-link">Hello {{ app.user.lastname }}</a></li>
+                <li class="nav-item" style="color: white;"><a class="nav-link">Hello {{ app.user.lastname }}</a></li>
             {% endif %}
 
             <li class="nav-item">
                 {% if app.request.get('_route') == 'app_login' %}
-                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link active">
+                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link active" style="color: white;">
                     {{ app.user ? 'Logout' : 'Login' }}
                 </a>
                 {% else %}
 
-                    <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link ">
+                    <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link " style="color: white;">
                         {{ app.user ? 'Logout' : 'Login' }}
                     </a>
                 {% endif %}
             </li>
             {% if app.user is null %}
                 {% if app.request.get('_route') == 'app_register'%}
-                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link active">Signup</a></li>
+                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link active" style="color: white;">Signup</a></li>
                 {% else %}
-                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link">Signup</a></li>
+                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link" style="color: white;">Signup</a></li>
                 {% endif %}
             {% endif %}
 
