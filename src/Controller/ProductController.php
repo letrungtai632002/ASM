@@ -18,7 +18,7 @@ use App\Entity\Brand;
 class ProductController extends AbstractController
 {
     /**
-     * @Route("/", name="app_product_index", methods={"GET"})
+     * @Route("/{pageId}", name="app_product_index", methods={"GET"})
      * @param ProductRepository $productRepository
      * @param Request $request
      * @param $orderBy
