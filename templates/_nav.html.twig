@@ -10,11 +10,11 @@
             {% if app.request.get('_route') == 'app_product_index'%}
             <li class="nav-item" style="color: white;"><a href="{{ path('app_product_index') }}" class="nav-link active">Products</a></li>
             {% else %}
-                <li class="nav-item" style="color: white;"><a href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
+                <li class="nav-item" style="color: white;"><a href="{{ path('app_product_index') }}" class="nav-link" style="color: white;">Products</a></li>
             {% endif %}
 
             {% if app.user %}
-                <li class="nav-item" style="color: white;"><a class="nav-link">Hello {{ app.user.lastname }}</a></li>
+                <li class="nav-item" style="color: white;"><a class="nav-link" style="color: white;">Hello {{ app.user.lastname }} </a></li>
             {% endif %}
 
             <li class="nav-item">
