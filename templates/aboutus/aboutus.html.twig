@@ -1,0 +1,73 @@
+{% extends 'base.html.twig.' %}
+{% block title %}AboutUs{% endblock %}
+
+{% block body %}
+    <h1 style="font-family: 'Blackadder ITC';color: red; padding-left: 100px"><u>About Us</u></h1>
+    <div class="row">
+        <div style="font-family: 'Bodoni MT Black';padding-left: 100px" class="col-7">
+            <p1>I love you to the moon</p1>
+            <p1>The goal of Meta Sau Shop is to assist all ladies in having stunning attire for every occasion,
+                as well as confidence when working, going out, and attending opulent parties.
+                We put the needs of the consumer first, and the shop values the customer comment above everything else.
+            </p1>
+            <br>
+            <p2>------------------------Keva "Meta Sau"-----------------------</p2>
+        </div>
+        <div class="col-5">
+            <img width="500px" src="{{ asset('images/aboutus.png') }}" alt="Symfony!"/>
+        </div>
+        <div style="font-family: 'Blackadder ITC';color: red" class="col-2">
+            <h2 style="padding-left: 100px"><u>We Sell</u></h2>
+        </div>
+        <div class="col-5 ">
+            <ul class="icon d-flex" style="list-style: none; justify-content: space-between;">
+                <li style="color: blue">T-shirt
+                    <p3 class="fa fa-gratipay pl-5" style="color: red"></p3>
+                </li>
+                <li style="color: blue"> Jeans
+                    <p3 class="fa fa-gratipay pl-5" style="color: red"></p3>
+                </li>
+                <li style="color: blue"> Skirt
+                    <p3 class="fa fa-gratipay pl-5" style="color: red"></p3>
+                </li>
+                <li style="color: blue"> Dress
+                    <p3 class="fa fa-gratipay pl-5" style="color: red"></p3>
+                </li>
+                <li style="color: blue"> Jumpsuit
+                    <p3 class="fa fa-gratipay pl-5" style="color: red"></p3>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="Design think" style="font-family:'Bodoni MT Black';padding-left: 100px ">
+
+        <h2 style="font-family: 'Blackadder ITC';color: red;padding-top: 50px"><u>Design thinking</u></h2>
+        <p1>
+            Design [thinking] has it’s greatest impact when it’s taken out of the hands
+            of the designers and [placed] into the hands of everyone
+            <p2 class="fa fa-gratipay" style="color: red"></p2>
+        </p1>
+        <br>
+        <p1>
+            So how to achieve this? We do the following:
+            <li>Learn from the customer</li>
+            <li> Find patterns in the data</li>
+            <li> Develop design principles</li>
+            <li>Make a prototype to test your principles</li>
+            <li> Iterate relentlessly</li>
+        </p1>
+    </div>
+    <div class="Brand col-12" style="padding-left: 100px;padding-top: 50px;font-family: 'Blackadder ITC';color: red">
+
+        <h2><u> Brands</u></h2>
+        <br>
+        <img class="w-90" style="padding-left: 50px;" src="{{ asset('images/brand.png') }}" alt="Symfony!">
+    </div>
+
+
+
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ app.user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ app.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ app.user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ app.user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>DoB</th>
+                <td>{{ app.user.DoB ? app.user.DoB|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Gender</th>
+                <td>{{ app.user.gender }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ app.user.phonenumber }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig', {'id': app.user.id}) }}
+{% endblock %}

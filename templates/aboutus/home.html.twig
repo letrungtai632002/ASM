@@ -1,0 +1,24 @@
+{% extends 'base.html.twig.' %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <a style="padding-left: 135px" href="products"><img src="{{ asset('images/home.png') }}" alt="Symfony!"></a>
+
+        <h1 style="padding-left: 500px; padding-top: 50px;  ">SALE IN SUMMER</h1>
+        <h1 style="color: red;padding-left: 500px;padding-bottom: 30px;"><u>10%</u>(01/06-25/07)</h1>
+
+        <div class="col 12" style="padding-left: 160px">
+            <a href="products"><img src="{{ asset('images/sale1.png') }}" alt="Symfony!"></a>
+                <a href="products"><img src="{{ asset('images/sale2.png') }}" alt="Symfony!"></a>
+                    <a href="products"><img src="{{ asset('images/sale3.png') }}" alt="Symfony!"></a>
+                        <a href="products"><img src="{{ asset('images/sale4.png') }}" alt="Symfony!"></a>
+                            <a href="products"><img src="{{ asset('images/sale5.png') }}" alt="Symfony!"></a>
+                                <a href="products"><img src="{{ asset('images/sale6.png') }}" alt="Symfony!"></a>
+        </div>
+    </div>
+
+    <div class="content" style="padding-left: 30px;padding-right:20px ;padding-top: 30px; font-size: 25px">
+    </div>
+
+{% endblock %}
