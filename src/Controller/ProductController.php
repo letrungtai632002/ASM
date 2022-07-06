@@ -59,7 +59,20 @@ class ProductController extends AbstractController
         } else
             $cartElements = [];
         return $this->json($cartElements);
+
     }
+
+//    public function reviewCart(Request $request,OrderDetail $orderDetail): Response
+//    {
+//        $session = $request->getSession();
+//        if ($session->has('cartElements')) {
+//            $cartElements = $session->get('cartElements');
+//        } else
+//            $cartElements = [];
+//        return $this->renderForm('cash/review.html.twig', [
+//            'orderdetails' => $cartElements,
+//        ]);
+//    }
     /**
      * @Route("/checkoutCart", name="app_checkout_cart", methods={"GET"})
      */
@@ -193,7 +206,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_product_show", methods={"GET"})
+     * @Route("/show/{id}", name="app_product_show", methods={"GET"})
      */
     public function show(Product $product): Response
     {
