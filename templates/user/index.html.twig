@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>User Management</h1>
 
     <table class="table">
         <thead>
@@ -21,16 +21,16 @@
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ app.user.id }}</td>
-                <td>{{ app.user.email }}</td>
-                <td>{{ app.user.firstname }}</td>
-                <td>{{ app.user.lastname }}</td>
-                <td>{{ app.user.DoB ? app.user.DoB|date('Y-m-d') : '' }}</td>
-                <td>{{ app.user.gender }}</td>
-                <td>{{ app.user.phonenumber }}</td>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.DoB ? user.DoB|date('Y-m-d') : '' }}</td>
+                <td>{{ user.gender }}</td>
+                <td>{{ user.phonenumber }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': app.user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
         {% endfor %}

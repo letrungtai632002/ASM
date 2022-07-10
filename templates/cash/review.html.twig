@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReView Cash{% endblock %}
+{% block body %}
+    {% for orderdetail in orderdetails %}
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Description</th>
+                <td>{{ orderdetail.product }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>${{ orderdetail.quantity }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}
