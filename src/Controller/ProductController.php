@@ -46,7 +46,10 @@ class ProductController extends AbstractController
             //Re-save cart Elements back to session again (after update/append new product to shopping cart)
             $session->set('cartElements', $cartElements);
         }
-        return new Response(); //means 200, successful
+//        return new Response(); //means 200, successful
+        return $this->redirectToRoute('app_product_show', ['id'=> $product->getId()], Response::HTTP_SEE_OTHER);
+
+
     }
     /**
      * @Route("/reviewCart", name="app_review_cart", methods={"GET"})
@@ -58,7 +61,10 @@ class ProductController extends AbstractController
             $cartElements = $session->get('cartElements');
         } else
             $cartElements = [];
-        return $this->json($cartElements);
+//        return $this->json($cartElements);
+        return $this->renderForm('cart/review.html.twig', [
+                  'cartElements' => $cartElements,
+          ]);
 
     }
 
@@ -69,8 +75,8 @@ class ProductController extends AbstractController
 //            $cartElements = $session->get('cartElements');
 //        } else
 //            $cartElements = [];
-//        return $this->renderForm('cash/review.html.twig', [
-//            'orderdetails' => $cartElements,
+//        return $this->renderForm('cart/review.html.twig', [
+//
 //        ]);
 //    }
     /**
@@ -143,7 +149,7 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository, BrandRepository $brandRepository, Request $request, int $pageId = 1): Response
     {
-//        $brand = $request->query->get('brand');
+        $brand = $request->query->get('brand');
         $minPrice = $request->query->get('minPrice');
         $maxPrice = $request->query->get('maxPrice');
         $Name = $request->query->get('name');
@@ -165,9 +171,9 @@ class ProductController extends AbstractController
             $criteria->orWhere($expressionBuilder->contains('description', $Name));
 
         }
-//        if (!is_null($brand)) {
-//            $criteria->andWhere($expressionBuilder->eq('brandname', $brand));
-//        }
+        if (!is_null($brand)) {
+            $criteria->andWhere($expressionBuilder->eq('brandname', $brand));
+        }
         if(!empty($sortBy)){
             $criteria->orderBy([$sortBy => ($orderBy == 'asc') ? Criteria::ASC : Criteria::DESC]);
         }

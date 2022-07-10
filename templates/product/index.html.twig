@@ -13,6 +13,10 @@
                                aria-describedby="search-addon"/>
                         Min Price: <input type="number" class="mb-2" name="minPrice"><br>
                         Max Price: <input type="number" class="mb-4" name="maxPrice"><br>
+                        {% for brand in brands %}
+                            <input type="checkbox" name="brand" value="{{ brand.id }}">
+                            <label> {{ brand.name }}</label><br>
+                        {% endfor %}
                         <input type="submit" value="Search" class="btn btn-primary"> |
                         <a href="{{ path('app_product_index') }}"
                            class="btn btn-primary">Reset</a>
@@ -33,9 +37,9 @@
             <div class="col-8">
                 <form action={{ path('app_product_index') }} method="get">
                     <div style="display: flex; justify-content: space-between">
-                        {% for brand in brands %}
-                            <input type="submit" style="width: 100px;" value="{{ brand.name }}" name="brand" class="btn btn-primary">
-                        {% endfor %}
+                        <form action="/action_page.php">
+                        <input type="submit" value="Submit">
+                        </form>
                     </div>
                 </form>
                 <div class="container">

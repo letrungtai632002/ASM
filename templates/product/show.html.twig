@@ -29,9 +29,13 @@
                 </tr>
                 </tbody>
             </table>
-            <input type="number" class="mb-4" value="1" min="1" max="1000" step="1"/>
-            <br>
-            <a href="" class="btn btn-primary m-auto">ADD</a>
+            {% if app.user %}
+            <form action={{ path('app_add_cart',{ 'id': product.id }) }} method="get">
+                <input type="number" class="mb-4" name="quantity" min="1" max="1000" step="1"/>
+                <br>
+                <input type="submit" value="Add" class="btn btn-primary">
+            </form>
+            {% endif %}
         </div>
 
     </div>
