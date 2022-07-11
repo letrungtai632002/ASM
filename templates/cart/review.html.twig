@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Brand index{% endblock %}
+
+{% block body %}
+    <h1>Brand index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cartElement in cartElements %}
+            <tr>
+{#                <td>{{ cartElement.product }}</td>#}
+{#                <td>{{ cartElement.name }}</td>#}
+                <td>{{ cartElement.id}}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
