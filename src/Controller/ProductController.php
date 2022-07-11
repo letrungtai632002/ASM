@@ -61,10 +61,10 @@ class ProductController extends AbstractController
             $cartElements = $session->get('cartElements');
         } else
             $cartElements = [];
-//        return $this->json($cartElements);
-        return $this->renderForm('cart/review.html.twig', [
-                  'cartElements' => $cartElements,
-          ]);
+      return $this->json($cartElements);
+//        return $this->renderForm('cart/review.html.twig', [
+//                  'cartElements' => $cartElements,
+//          ]);
 
     }
 

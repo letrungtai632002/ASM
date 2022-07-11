@@ -1,78 +1,106 @@
 <div class="container" style="background: linear-gradient(-180deg,#f53d2d, #f63);">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="{{ path('app_product_index') }}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <a href="{{ path('app_product_index') }}"
+           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <img class="card-img-top" src="{{ asset('images/logo.png') }}" alt="Symfony!" style="width: 15%;"/>
         </a>
         <div>
-        <ul class="nav nav-pills">
-            {% if app.request.get('_route') == 'home'%}
-                <li class="nav-item"> <a href="{{ path('home') }}" class="nav-link active" style="color: white;">Home</a></li>
-            {% else %}
-                <li class="nav-item"> <a href="{{ path('home') }}" class="nav-link" style="color: white;">Home</a></li>
-            {% endif %}
-            {% if app.request.get('_route') == 'about'%}
-                <li class="nav-item"> <a href="{{ path('about') }}" class="nav-link active" style="color: white;">About</a></li>
-            {% else %}
-                <li class="nav-item"> <a href="{{ path('about') }}" class="nav-link" style="color: white;">About</a></li>
-            {% endif %}
-            {% if app.request.get('_route') == 'app_product_index'%}
-            <li class="nav-item"><a style="color: white;" href="{{ path('app_product_index') }}" class="nav-link active">Products</a></li>
-            {% else %}
-                <li class="nav-item" ><a style="color: white;" href="{{ path('app_product_index') }}" class="nav-link">Products</a></li>
-            {% endif %}
+            <ul class="nav nav-pills">
+                {% if app.request.get('_route') == 'home' %}
+                    <li class="nav-item"><a href="{{ path('home') }}" class="nav-link active"
+                                            style="color: white;">Home</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{{ path('home') }}" class="nav-link" style="color: white;">Home</a>
+                    </li>
+                {% endif %}
+                {% if app.request.get('_route') == 'about' %}
+                    <li class="nav-item"><a href="{{ path('about') }}" class="nav-link active" style="color: white;">About</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item"><a href="{{ path('about') }}" class="nav-link" style="color: white;">About</a>
+                    </li>
+                {% endif %}
+                {% if app.request.get('_route') == 'app_product_index' %}
+                    <li class="nav-item"><a style="color: white;" href="{{ path('app_product_index') }}"
+                                            class="nav-link active">Products</a></li>
+                {% else %}
+                    <li class="nav-item"><a style="color: white;" href="{{ path('app_product_index') }}"
+                                            class="nav-link">Products</a></li>
+                {% endif %}
+                {% if app.user %}
+                    <li class="nav-item">
+                        {% if app.request.get('_route') == 'app_user_show' %}
+                            <a class="nav-link active" href=" {{ path('app_user_show', {'id':  app.user.id  }) }}"
+                               style="color: white;">Hello {{ app.user.lastname }}</a>
+                        {% else %}
+                            <a class="nav-link" href=" {{ path('app_user_show', {'id':  app.user.id  }) }}"
+                               style="color: white;">Hello {{ app.user.lastname }}</a>
+                        {% endif %}
+                    </li>
+                {% endif %}
 
-            {% if app.user %}
-                <li class="nav-item" >
-                    <a class="nav-link" href=" {{ path('app_user_show', {'id':  app.user.id  }) }}" style="color: white;" >Hello {{ app.user.lastname }}
+                <li class="nav-item">
+                    {% if app.request.get('_route') == 'app_login' %}
+                        <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link active" style="color: white;">
+                            {{ app.user ? 'Logout' : 'Login' }}
+                        </a>
+                    {% else %}
+
+                        <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link " style="color: white;">
+                            {{ app.user ? 'Logout' : 'Login' }}
+                        </a>
+                    {% endif %}
+                </li>
+                {% if app.user is null %}
+                    {% if app.request.get('_route') == 'app_register' %}
+                        <li class="nav-item"><a href="{{ path('app_register') }}" class="nav-link active"
+                                                style="color: white;">Signup</a></li>
+                    {% else %}
+                        <li class="nav-item"><a href="{{ path('app_register') }}" class="nav-link"
+                                                style="color: white;">Signup</a></li>
+                    {% endif %}
+                {% endif %}
+                <li class="nav-item">
+                    <a href="{{ path('app_review_cart') }}" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                             class="bi bi-cart3" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
                     </a>
                 </li>
-            {% endif %}
 
-            <li class="nav-item">
-                {% if app.request.get('_route') == 'app_login' %}
-                <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link active" style="color: white;">
-                    {{ app.user ? 'Logout' : 'Login' }}
-                </a>
-                {% else %}
-
-                    <a href="/{{ app.user ? 'logout' : 'login' }}" class="nav-link " style="color: white;">
-                        {{ app.user ? 'Logout' : 'Login' }}
-                    </a>
-                {% endif %}
-            </li>
-            {% if app.user is null %}
-                {% if app.request.get('_route') == 'app_register'%}
-                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link active" style="color: white;">Signup</a></li>
-                {% else %}
-                    <li class="nav-item"> <a href="{{ path('app_register') }}" class="nav-link" style="color: white;">Signup</a></li>
-                {% endif %}
-            {% endif %}
-
-        </ul>
+            </ul>
             <br>
             {% if is_granted('ROLE_ADMIN') %}
 
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><p class="nav-link" style="color: black;background-color: white">Manage: </p> </li>
+                    <li class="nav-item"><p class="nav-link" style="color: black;background-color: white">Manage: </p>
+                    </li>
                     <li class="nav-item">
-                        {% if app.request.get('_route') == 'app_user_index'%}
-                    <li class="nav-item"> <a href="{{ path('app_user_index') }}" class="nav-link active" style="color: white;">User</a></li>
+                        {% if app.request.get('_route') == 'app_user_index' %}
+                    <li class="nav-item"><a href="{{ path('app_user_index') }}" class="nav-link active"
+                                            style="color: white;">User</a></li>
                     {% else %}
-                        <li class="nav-item"> <a href="{{ path('app_user_index') }}" class="nav-link" style="color: white;">User</a></li>
+                        <li class="nav-item"><a href="{{ path('app_user_index') }}" class="nav-link"
+                                                style="color: white;">User</a></li>
                     {% endif %}
                     </li>
                     <li class="nav-item">
-                        {% if app.request.get('_route') == 'app_product_manage'%}
-                    <li class="nav-item"> <a href="{{ path('app_product_manage') }}" class="nav-link active" style="color: white;">Product</a></li>
+                        {% if app.request.get('_route') == 'app_product_manage' %}
+                    <li class="nav-item"><a href="{{ path('app_product_manage') }}" class="nav-link active"
+                                            style="color: white;">Product</a></li>
                 {% else %}
-                    <li class="nav-item"> <a href="{{ path('app_product_manage') }}" class="nav-link" style="color: white;">Product</a></li>
+                    <li class="nav-item"><a href="{{ path('app_product_manage') }}" class="nav-link"
+                                            style="color: white;">Product</a></li>
                     {% endif %}
                     </li>
                     <li class="nav-item">
-                        {% if app.request.get('_route') == 'app_brand_index'%}
-                    <li class="nav-item"> <a href="{{ path('app_brand_index') }}" class="nav-link active" style="color: white;">Brand</a></li>
+                        {% if app.request.get('_route') == 'app_brand_index' %}
+                    <li class="nav-item"><a href="{{ path('app_brand_index') }}" class="nav-link active"
+                                            style="color: white;">Brand</a></li>
                 {% else %}
-                    <li class="nav-item"> <a href="{{ path('app_brand_index') }}" class="nav-link" style="color: white;">Brand</a></li>
+                    <li class="nav-item"><a href="{{ path('app_brand_index') }}" class="nav-link" style="color: white;">Brand</a>
+                    </li>
                     {% endif %}
                     </li>
 
@@ -81,13 +109,6 @@
 
         </div>
     </header>
-
-
-
-
-
-
-
 
 
 </div>
