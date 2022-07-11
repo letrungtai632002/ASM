@@ -2,23 +2,78 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <a style="padding-left: 135px" href="products"><img src="{{ asset('images/home.png') }}" alt="Symfony!"></a>
+    <div class="container"
+         style="background-color: #040d1d; color: #54fafe; font-family: 'Times New Roman', Times, serif;">
+        <h2 class="section-title" style="text-align: center; padding: 5px;">We are all about making a difference</h2>
+        <img style="width: 100%" src="{{ asset('images/img.png') }}" class="img-fluid banner-img" alt="img-banner">
 
-        <h1 style="padding-left: 500px; padding-top: 50px;  ">SALE IN SUMMER</h1>
-        <h1 style="color: red;padding-left: 500px;padding-bottom: 30px;"><u>10%</u>(01/06-25/07)</h1>
-
-        <div class="col 12" style="padding-left: 160px">
-            <a href="products"><img src="{{ asset('images/sale1.png') }}" alt="Symfony!"></a>
-                <a href="products"><img src="{{ asset('images/sale2.png') }}" alt="Symfony!"></a>
-                    <a href="products"><img src="{{ asset('images/sale3.png') }}" alt="Symfony!"></a>
-                        <a href="products"><img src="{{ asset('images/sale4.png') }}" alt="Symfony!"></a>
-                            <a href="products"><img src="{{ asset('images/sale5.png') }}" alt="Symfony!"></a>
-                                <a href="products"><img src="{{ asset('images/sale6.png') }}" alt="Symfony!"></a>
+        <div style="height: 400px; padding-top: 30px">
+                <div class="container">
+                    <div class="text-center"  style="padding-left: 5px">
+                        <h2>We are the New E-commerce solution</h2>
+                        <p>
+                            <strong> A brand new e-commerce platform - </strong>
+                            we have refreshed our brand name to
+                            constantly evolve with innovation. Tech Shop strives to maximise your productivity at work
+                            through best-in-market quality and reliability along with creating intelligent designs with
+                            smart features.
+                            <br>
+                            <strong>We’re built for your business success.</strong>
+                        </p>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="col col-12 col-md-6 col-lg-6">
+                                <div class="d-flex">
+                                    <img style="height: 70px; width: 60px" src="{{ asset('images/img_1.png') }}" alt="image">
+                                    <div>
+                                        <label>100% GENUINE PRODUCTS</label>
+                                        <p>
+                                            With reputable brands on the market today,
+                                            we are confident to bring you the best products.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 col-md-6 col-lg-6">
+                                <div class="d-flex">
+                                    <img style="height: 70px; width: 60px" src="{{ asset('images/img_2.png') }}" alt="image">
+                                    <div>
+                                        <label>LIFETIME WARRANTY</label>
+                                        <p>
+                                            In order to give you the best service and the most satisfaction,
+                                            the products provided by our side will come with a lifetime warranty.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 col-md-6 col-lg-6">
+                                <div class="d-flex">
+                                    <img style="height: 70px; width: 60px" src="{{ asset('images/img_3.png') }}" alt="image">
+                                    <div>
+                                        <label>SECURITY IS PRIORTY</label>
+                                        <p>
+                                            Keeping your data secure with Tech Shop’s own native system BIOS, secure
+                                            multi-point login, Smart Data Encryption and Mobile Zero Client solutions.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-12 col-md-6 col-lg-6">
+                                <div class="d-flex">
+                                    <img style="height: 70px; width: 60px" src="{{ asset('images/img_4.png') }}" alt="image">
+                                    <div>
+                                        <label>AFFORDABLE PRICE</label>
+                                        <p>
+                                            Aiming at the requirements, we bring people products with the most reasonable price.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="content" style="padding-left: 30px;padding-right:20px ;padding-top: 30px; font-size: 25px">
-    </div>
-
 {% endblock %}

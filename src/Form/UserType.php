@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,8 +17,19 @@ class UserType extends AbstractType
             ->add('email')
             ->add('firstname')
             ->add('lastname')
-            ->add('DoB')
-            ->add('gender')
+            ->add('DoB', DateType::class, [
+                'required' => True,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'label' =>'Date of Birth',
+                ])
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Male' => 'Male',
+                    'Female' => 'Female',
+                    'Other' => 'Other',
+                ],
+                ])
             ->add('phonenumber')
         ;
     }

@@ -1,43 +1,103 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User Management</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>DoB</th>
-                <td>{{ user.DoB ? user.DoB|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Gender</th>
-                <td>{{ user.gender }}</td>
-            </tr>
-            <tr>
-                <th>Phone number</th>
-                <td>{{ user.phonenumber }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <div class="card-body">
+                        <div class="card-title mb-4">
+                            <div class="row d-flex justify-content-start">
+                                <div class="image-container col-2">
+                                    {% if user.gender=='Male' %}
+                                        <img src="{{ asset('images/avatar1.jpg') }}" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    {% elseif user.gender=='Female' %}
+                                        <img src="{{ asset('images/avatar2.jpg') }}" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    {% else %}
+                                        <img src="{{ asset('images/avatar3.jpg') }}" style="width: 150px; height: 150px" class="img-thumbnail" />
+                                    {% endif %}
+                                </div>
+                                <div class="ml-3 col-8">
+                                    <h2 class="d-block" style="font-size: 2.5rem; font-weight: bold;"><a>{{ user.lastname }}</a></h2>
+                                </div>
+                                <div class="col-2">
+                                    <button style="width: 50%; height: 40px; border-radius: 4px; background-color: #5eb5e0;">
+                                        <a href="{{ path('app_user_edit', {'id': user.id}) }}" >Edit</a>
+                                    </button>
+                                    {{ include('user/_delete_form.html.twig') }}
 
-    {{ include('user/_delete_form.html.twig') }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="tab-content ml-1" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Email</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{ user.email }}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Full Name</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{ user.firstname }} {{ user.lastname }}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Birth Date</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{ user.DoB ? user.DoB|date('Y-m-d') : '' }}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Gender</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{ user.gender }}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-sm-3 col-md-2 col-5">
+                                                <label style="font-weight:bold;">Phone Number</label>
+                                            </div>
+                                            <div class="col-md-8 col-6">
+                                                {{ user.phonenumber }}
+                                            </div>
+                                        </div>
+                                        <hr />
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

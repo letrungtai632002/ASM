@@ -1,4 +1,46 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="container" style="text-align: left; justify-items: right; border: 2px double #5eb5e0; border-radius: 5px; padding: 5px ">
+    <div class="row">
+        <div class="col-12">
+
+            <div class="form-outline mb-4">
+                {{ form_label(form.firstname) }}
+                :
+                {{ form_widget(form.firstname) }}
+            </div>
+
+            <div class="form-outline mb-4">
+                {{ form_label(form.lastname) }}
+                :
+                {{ form_widget(form.lastname) }}
+            </div>
+
+            <div class="form-outline mb-4">
+                {{ form_label(form.email) }}
+                :
+                {{ form_widget(form.email) }}
+            </div>
+
+            <div class="form-outline datepicker w-100 mb-4">
+                {{ form_label(form.DoB) }}
+                :
+                {{ form_widget(form.DoB) }}
+            </div>
+
+            <div class="form-outline mb-4">
+                {{ form_label(form.gender) }}
+                :
+                {{ form_widget(form.gender) }}
+            </div>
+
+            <div class="form-outline mb-4">
+                {{ form_label(form.phonenumber) }}
+                :
+                {{ form_widget(form.phonenumber) }}
+            </div>
+
+        </div>
+    </div>
+    <button class="btn" style="width: 100px; height: 40px; border-radius: 4px; background-color: #5eb5e0;">{{ button_label|default('Save') }}</button>
+</div>
 {{ form_end(form) }}
