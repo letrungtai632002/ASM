@@ -11,43 +11,56 @@
                         <input type="string" name="name" class="form-control rounded mb-4"
                                placeholder="What are you looking for?" aria-label="Search"
                                aria-describedby="search-addon"/>
+                        Brand:
+                        <select name="brand" class="mb-2">
+                            {#                            <option value="Drink" {{ (selectedCat=="Drink") ? 'selected' }}> Drink</option> #}
+                            {#                            <option value="Snack" {{ (selectedCat=="Snack") ? 'selected' }}> Snack</option> #}
+                            {#                            <option value="Electronics" {{ (selectedCat=="Electronics") ? 'selected' }} >Electronics</option> #}
+                            <option value="None"><label>None</label></option>
+                            {% for brand in brands %}
+                                <option value="{{ brand.id }}"><label> {{ brand.name }}</label></option>
+                                {#                                <input type="checkbox" name="brand" value="{{ brand.name }}"> #}
+                                {#                                <label> {{ brand.name }}</label><br> #}
+                            {% endfor %}
+                        </select><br>
+
                         Min Price: <input type="number" class="mb-2" name="minPrice"><br>
                         Max Price: <input type="number" class="mb-4" name="maxPrice"><br>
-                        {% for brand in brands %}
-                            <input type="checkbox" name="brand" value="{{ brand.id }}">
-                            <label> {{ brand.name }}</label><br>
-                        {% endfor %}
                         <input type="submit" value="Search" class="btn btn-primary"> |
                         <a href="{{ path('app_product_index') }}"
                            class="btn btn-primary">Reset</a>
-                        <div class="row mt-4" style="display: flex">
-                            <div class="col-1"><p>Price: </p></div>
-                            <div class="col-3 pr-1">
-                                <a href="{{ path(app.request.attributes.get('_route'),
-                                    app.request.query.all|merge({'sort': 'price', 'order': 'desc'})) }}"
-                                   class="btn btn-primary btn-sm">Hi->Low</a>
-                                <a href="{{ path(app.request.attributes.get('_route'),
-                                    app.request.query.all|merge({'sort': 'price', 'order': 'asc'})) }}"
-                                   class="btn btn-primary btn-sm">Low->Hi</a>
-                            </div>
-                        </div>
                     </form>
                 </div>
             </div>
             <div class="col-8">
-{#                <form action={{ path('app_product_index') }} method="get">#}
-{#                    <div style="display: flex; justify-content: space-between">#}
-{#                        <form action="/action_page.php">#}
-{#                        <input type="submit" value="Submit">#}
-{#                        </form>#}
-{#                    </div>#}
-{#                </form>#}
+                {#                <form action={{ path('app_product_index') }} method="get"> #}
+                {#                    <div style="display: flex; justify-content: space-between"> #}
+                {#                        <form action="/action_page.php"> #}
+                {#                        <input type="submit" value="Submit"> #}
+                {#                        </form> #}
+                {#                    </div> #}
+                {#                </form> #}
+                <form action={{ path('app_product_index') }} method="get">
+                <div class="row mt-4" style="display: flex">
+                    <div class="col-1"><p>Price: </p></div>
+                    <div class="col-3 pr-1">
+                        <a href="{{ path(app.request.attributes.get('_route'),
+                            app.request.query.all|merge({'sort': 'price', 'order': 'desc'})) }}"
+                           class="btn btn-primary btn-sm">Hi->Low</a>
+                        <a href="{{ path(app.request.attributes.get('_route'),
+                            app.request.query.all|merge({'sort': 'price', 'order': 'asc'})) }}"
+                           class="btn btn-primary btn-sm">Low->Hi</a>
+                    </div>
+                </div>
+                </form>
+
                 <div class="container">
                     <div class="row row-cols-1 row-cols-md-4 g-4 pt-4">
                         {% for product in products %}
                             <div class="col">
                                 <div class="card h-100">
-                                    <img class="card-img-top" style="width: 100%; height: 150px;" src="{{ asset(product.image) }}" alt="Symfony!"/>
+                                    <img class="card-img-top" style="width: 100%; height: 150px;"
+                                         src="{{ asset(product.image) }}" alt="Symfony!"/>
                                     <div class="card-body">
                                         <h5 class="card-title">{{ product.name }}</h5>
                                         <p>Price: {{ product.price }}</p>
@@ -64,6 +77,7 @@
                         <div style="display:flex;text-align:center;justify-content:center">
                             <nav aria-label="Page navigation">
                                 <ul class="pagination">
+                                    {% if numOfPages ==0 %} {% set numOfPages =1 %}{%  endif %}
                                     {% for i in range(1, numOfPages) %}
                                         {% set style = app.request.get('pageId')==i ? "active" : "" %}
                                         <li class="page-item {{ style }}">

@@ -47,6 +47,11 @@ class Product
      */
     private $brandname;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $brand;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +125,18 @@ class Product
     public function setBrandname(?Brand $brandname): self
     {
         $this->brandname = $brandname;
+
+        return $this;
+    }
+
+    public function getBrand(): ?int
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?int $brand): self
+    {
+        $this->brand = $brand;
 
         return $this;
     }

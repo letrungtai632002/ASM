@@ -39,22 +39,30 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+//WHERE product.brandname_id = :price
+//
+//OR WHERE product.name = :price
+//ORDER BY product.price ASC
 
 
-//    /**
-//     * @return Product[] Returns an array of Product objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function productjoinbrand(string $price,string $brand): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+      $price='%'. $price;
+      $price.='%';
+
+        $sql = '
+            SELECT * FROM  brand
+            left join product on product.brandname_id = brand.id        
+     WHERE (product.name like :price or product.description like :price) and brand.id like :brand
+            ';
+        $stmt = $conn->prepare($sql);
+        $resultSet = $stmt->executeQuery(['price' => $price,'brand'=>$brand]);
+
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $resultSet->fetchAllAssociative();
+    }
 
 //    public function findOneBySomeField($value): ?Product
 //    {

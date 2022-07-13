@@ -23,7 +23,12 @@ class ProductType extends AbstractType
             ->add('brandname', EntityType::class,[
                 'class'=>Brand::class,
                 'choice_label'=>'name'
-            ]);
+            ]
+            )
+
+        ;
+
+
     }
 
 

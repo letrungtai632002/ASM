@@ -138,67 +138,6 @@ class ProductController extends AbstractController
         } else
             return new Response("Nothing in cart to checkout!");
     }
-    /**
-     * @Route("/manage", name="app_product_manage", methods={"GET"})
-     */
-    public function manage(ProductRepository $productRepository): Response
-    {
-        return $this->render('product/manage.html.twig', [
-            'products' => $productRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/{pageId}", name="app_product_index", methods={"GET"})
-     * @param ProductRepository $productRepository
-     * @param Request $request
-     * @param $orderBy
-     * @param int $pageId
-     * @return Response
-     */
-    public function index(ProductRepository $productRepository, BrandRepository $brandRepository, Request $request, int $pageId = 1): Response
-    {
-        $brand = $request->query->get('brand');
-        $minPrice = $request->query->get('minPrice');
-        $maxPrice = $request->query->get('maxPrice');
-        $Name = $request->query->get('name');
-        $sortBy = $request->query->get('sort');
-        $orderBy = $request->query->get('order');
-
-
-        $expressionBuilder = Criteria::expr();
-        $criteria = new Criteria();
-        if (!is_null($minPrice) || empty($minPrice)) {
-            $minPrice = 0;
-        }
-        $criteria->where($expressionBuilder->gte('price', $minPrice));
-        if (!is_null($maxPrice) && !empty(($maxPrice))) {
-            $criteria->andWhere($expressionBuilder->lte('price', $maxPrice));
-        }
-        if (!is_null($Name) && !empty(($Name))) {
-            $criteria->andWhere($expressionBuilder->contains('name', $Name));
-            $criteria->orWhere($expressionBuilder->contains('description', $Name));
-
-        }
-        if (!is_null($brand)) {
-            $criteria->andWhere($expressionBuilder->eq('brandname', $brand));
-        }
-        if(!empty($sortBy)){
-            $criteria->orderBy([$sortBy => ($orderBy == 'asc') ? Criteria::ASC : Criteria::DESC]);
-        }
-        $filteredList = $productRepository->matching($criteria);
-
-        $numOfItems = $filteredList->count();   // total number of items satisfied above query
-        $itemsPerPage = 8; // number of items shown each page
-        $filteredList = $filteredList->slice($itemsPerPage * ($pageId - 1), $itemsPerPage);
-        return $this->renderForm('product/index.html.twig', [
-            'products' => $filteredList,
-            'brands' => $brandRepository->findAll(),
-            'numOfPages' => ceil($numOfItems / $itemsPerPage)
-
-        ]);
-
-    }
 
     /**
      * @Route("/new", name="app_product_new", methods={"GET", "POST"})
@@ -219,6 +158,87 @@ class ProductController extends AbstractController
             'product' => $product,
             'form' => $form,
         ]);
+    }
+
+    /**
+     * @Route("/manage", name="app_product_manage", methods={"GET"})
+     */
+    public function manage(ProductRepository $productRepository): Response
+    {
+        return $this->render('product/manage.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+    /**
+     * @Route("/search", name="app_product_search", methods={"GET"})
+     */
+    public function test(ProductRepository $productRepository,Request $request,BrandRepository $brandRepository, int $pageId = 1): Response
+    {
+        $name = $request->query->get('name');
+        $selectedBrand = $request->query->get('brand');
+//        return $this->render('product/manage.html.twig', [
+//            'products' => $productRepository->productjoinbrand($name,$selectedBrand),
+//        ]);
+        $filteredList=$productRepository->productjoinbrand($name,$selectedBrand);
+
+        return $this->renderForm('product/index.html.twig', [
+            'products' => $filteredList,
+            'brands' => $brandRepository->findAll(),
+            'numOfPages' => 1
+
+        ]);
+    }
+
+    /**
+     * @Route("/{pageId}", name="app_product_index", methods={"GET"})
+     * @param ProductRepository $productRepository
+     * @param Request $request
+     * @param $orderBy
+     * @param int $pageId
+     * @return Response
+     */
+    public function index(ProductRepository $productRepository, BrandRepository $brandRepository, Request $request, int $pageId = 1): Response
+    {
+        $brand = $request->query->get('brand');
+        $minPrice = $request->query->get('minPrice');
+        $maxPrice = $request->query->get('maxPrice');
+        $Name = $request->query->get('name');
+        $sortBy = $request->query->get('sort');
+        $orderBy = $request->query->get('order');
+
+        $expressionBuilder = Criteria::expr();
+        $criteria = new Criteria();
+        if (!is_null($minPrice) || empty($minPrice)) {
+            $minPrice = 0;
+        }
+        $criteria->where($expressionBuilder->gte('price', $minPrice));
+        if (!is_null($maxPrice) && !empty(($maxPrice))) {
+            $criteria->andWhere($expressionBuilder->lte('price', $maxPrice));
+        }
+        if (!is_null($Name) && !empty(($Name))) {
+            $criteria->andWhere($expressionBuilder->contains('name', $Name));
+            $criteria->orWhere($expressionBuilder->contains('description', $Name));
+
+        }
+        if (($brand!='None') && (!is_null($Name)) ) {
+            $criteria->andWhere($expressionBuilder->eq('brand', $brand));
+        }
+        if(!empty($sortBy)){
+            $criteria->orderBy([$sortBy => ($orderBy == 'asc') ? Criteria::ASC : Criteria::DESC]);
+        }
+
+        $filteredList = $productRepository->matching($criteria);
+
+        $numOfItems = $filteredList->count();   // total number of items satisfied above query
+        $itemsPerPage = 8; // number of items shown each page
+        $filteredList = $filteredList->slice($itemsPerPage * ($pageId - 1), $itemsPerPage);
+        return $this->renderForm('product/index.html.twig', [
+            'products' => $filteredList,
+            'brands' => $brandRepository->findAll(),
+            'numOfPages' => ceil($numOfItems / $itemsPerPage)
+
+        ]);
+
     }
 
     /**
